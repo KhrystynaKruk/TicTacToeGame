@@ -1,0 +1,219 @@
+*::after,
+::before {
+  box-sizing: border-box;
+}
+:root {
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+  --font: "Nabla", cursive;
+  --background-color: black;
+  --text-color: white;
+  --cells-color: rgb(255, 204, 22);
+}
+body {
+  font-family: "Handlee", cursive;
+  font-family: var(--font);
+  margin: 0;
+  background-color: var(--background-color);
+}
+
+.board {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 1px solid var(--cells-color);
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+  border-bottom: none;
+}
+.cell.x,
+.cell.circle {
+  cursor: not-allowed;
+}
+
+/* cross */
+
+.cell.circle::before {
+  background-color: var(--text-color);
+}
+.cell.x::before,
+.cell.x::after {
+  background-color: rgb(170, 18, 18);
+}
+
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  background-color: rgb(88, 8, 8);
+}
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  background-color: rgb(101, 101, 101);
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--mark-size) * 0.15);
+  height: calc(var(--mark-size));
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  transform: rotate(45deg);
+}
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::before {
+  transform: rotate(-45deg);
+}
+/* circle */
+
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  width: calc(var(--mark-size));
+  height: calc(var(--mark-size));
+}
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  width: calc(var(--mark-size) * 0.75);
+  height: calc(var(--mark-size) * 0.75);
+  background-color: var(--background-color);
+}
+
+/* restart screen */
+.winning-message {
+  padding: 1.5rem 0;
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.862);
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 4rem;
+  flex-direction: column;
+}
+
+.winning-message button {
+  border: 1px solid rgb(74, 74, 74);
+  display: inline-block;
+  text-align: center;
+  background: var(--color);
+  color: var(--bg);
+  font-weight: bold;
+  padding: 1.18em 1.32em 1.03em;
+  line-height: 1;
+  border-radius: 1em;
+  position: relative;
+  min-width: 8.23em;
+  text-decoration: none;
+  font-family: var(--font);
+  font-size: 1.25rem;
+}
+
+.winning-message button:hover {
+  background-color: rgb(0, 0, 0);
+  border-color: white;
+  color: white;
+}
+.winning-message.show {
+  display: flex;
+}
+/* start message */
+.start-message {
+  padding: 1.5rem 0;
+  filter: url("#goo");
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 4rem;
+  flex-direction: column;
+}
+
+.start-message button {
+  border: 1px solid rgb(74, 74, 74);
+  display: inline-block;
+  text-align: center;
+  background: var(--color);
+  color: var(--bg);
+  font-weight: bold;
+  padding: 1.18em 1.32em 1.03em;
+  line-height: 1;
+  border-radius: 1em;
+  position: relative;
+  min-width: 8.23em;
+  text-decoration: none;
+  font-family: var(--font);
+  font-size: 1.25rem;
+}
+
+.start-message button:hover {
+  background-color: rgb(0, 0, 0);
+  border-color: white;
+  color: white;
+}
+.start-message.show {
+  display: flex;
+}
+
+@media screen and (max-width: 768px) {
+  .start-message {
+    text-align: center;
+    font-size: 2rem;
+    padding: 1rem 4rem;
+  }
+  .start-message button {
+    margin-top: 5rem;
+  }
+}
