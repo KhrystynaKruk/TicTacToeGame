@@ -182,6 +182,7 @@ body {
 }
 
 .start-message button {
+  margin-top: 5rem;
   border: 1px solid rgb(74, 74, 74);
   display: inline-block;
   text-align: center;
